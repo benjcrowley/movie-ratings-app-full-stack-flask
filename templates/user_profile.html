@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ user.email}} - Ratings{% endblock %}
+
+{% block body %}
+
+<h1>{{ user.email}}</h1>
+
+<h2>Rated Movies</h2>
+<ul>
+    {% for rating in user.ratings %}
+        <li><a href="/movies/{{ rating.movie_id }}">{{ rating.movie.title }}</a> - {{ rating.score }}</li>
+    {% endfor %}
+{% endblock %}

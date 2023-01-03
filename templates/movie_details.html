@@ -5,6 +5,36 @@
 {% block body %}
 
 <h1>{{ movie.title}}</h1>
+<h3>Average Rating: {{ average_score}}</h3>
+<!-- shows users rating if they have rated this movie, else allows user to add rating -->
+{% if current_user_rating %}
+    <h3>Your Rating: {{ current_user_rating.score }}</h3>
+    <!-- create a button that allow users to remove the rating for the current user in session -->
+    <button>
+        <a href="/remove_rating/{{ current_user_rating.rating_id }}/{{ movie.movie_id }}">Remove Rating</a>
+    
+    </button>
+    
+{% else %}
+    <h3>Rate this movie</h3>
+    <!-- Allow users to add a rating that uses a 5 star rating system-->
+    <form action="/movies/{{ movie.movie_id }}" method="POST">
+        <p>
+            Your Rating
+            <select name="score">
+                <option value="1">1 Star</option>
+                <option value="2">2 Stars</option>
+                <option value="3">3 Stars</option>
+                <option value="4">4 Stars</option>
+                <option value="5">5 Stars</option>
+            </select>
+        </p>
+        
+        <p>
+            <input type="submit">
+        </p>
+        
+        {% endif %}
 
 <p>
     {{ movie.overview }}
